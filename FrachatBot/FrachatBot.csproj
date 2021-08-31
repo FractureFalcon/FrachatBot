@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChattyHeartBeat.cs" />
+    <Compile Include="ControlExtensions.cs" />
     <Compile Include="DiscordSocketClientExtensions.cs" />
     <Compile Include="DiscordTextPostData.cs" />
     <Compile Include="EventUtils.cs" />
