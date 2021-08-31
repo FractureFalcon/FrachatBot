@@ -19,7 +19,7 @@ namespace FrachatBot
 
                 senderTextBox.BackColor = SystemColors.InactiveCaption;
 
-                RunActionOnSTAThread(
+                _ = RunActionOnSTAThread(
                     () => Clipboard.SetText(senderTextBox.Text),
                     () =>
                     {
