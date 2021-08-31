@@ -478,7 +478,6 @@
             this.DebugTestingButton.TabIndex = 0;
             this.DebugTestingButton.Text = "Button for testing whatever is in Click";
             this.DebugTestingButton.UseVisualStyleBackColor = true;
-            this.DebugTestingButton.Click += new System.EventHandler(this.TestInfiniteSTAAction);
             // 
             // FrachatBotForm
             // 
