@@ -84,15 +84,7 @@ namespace FrachatBot
 
         public Task LogLine(string message)
         {
-            if (LogTextBox.InvokeRequired)
-            {
-                Action safeWrite = delegate { LogLine(message); };
-                LogTextBox.Invoke(safeWrite);
-            }
-            else
-            {
-                LogTextBox.AppendText($"{message}{Environment.NewLine}");
-            }
+            LogTextBox.InvokeWithRequiredCheck(() => LogTextBox.AppendText($"{message}{Environment.NewLine}"));
 
             return Task.CompletedTask;
         }
@@ -107,15 +99,7 @@ namespace FrachatBot
 
         public void SetBotStatusTextSafe(string text)
         {
-            if (BotStatusLabel.InvokeRequired)
-            {
-                Action safeWrite = delegate { SetBotStatusTextSafe(text); };
-                BotStatusLabel.Invoke(safeWrite);
-            }
-            else
-            {
-                BotStatusLabel.Text = text;
-            }
+            BotStatusLabel.InvokeWithRequiredCheck(() => BotStatusLabel.Text = text);
         }
 
         private void OnLogModified(object sender, EventArgs args)
@@ -146,12 +130,7 @@ namespace FrachatBot
 
         public void PopulateDropDownList(ComboBox dropDown, IReadOnlyCollection<SocketEntity<UInt64>> items, string defaultDropDownText = "")
         {
-            if (dropDown.InvokeRequired)
-            {
-                Action safePopulate = delegate { PopulateDropDownList(dropDown, items, defaultDropDownText); };
-                dropDown.Invoke(safePopulate);
-            }
-            else
+            dropDown.InvokeWithRequiredCheck(() =>
             {
                 dropDown.Items.Clear();
 
@@ -169,13 +148,13 @@ namespace FrachatBot
                 },
                 // ...then we need the original thread to finish modifying the dropdown
                 // so finish up in the callback (original context)
-                () => 
-                {     
+                () =>
+                {
                     dropDown.DisplayMember = "ToString()";
                     dropDown.Text = defaultDropDownText;
                     dropDown.Enabled = true;
                 });
-            }
+            });
         }
 
         public void PopulateServerList(IReadOnlyCollection<SocketEntity<UInt64>> items)
@@ -190,15 +169,7 @@ namespace FrachatBot
 
         public void ToggleSendLogButtonFunctionality(Boolean enabled)
         {
-            if (SendLogToDiscordButton.InvokeRequired)
-            {
-                Action safeToggle = delegate { ToggleSendLogButtonFunctionality(enabled); };
-                SendLogToDiscordButton.Invoke(safeToggle);
-            }
-            else
-            {
-                SendLogToDiscordButton.Enabled = enabled;
-            }
+            SendLogToDiscordButton.InvokeWithRequiredCheck(() => SendLogToDiscordButton.Enabled = enabled);
         }
 
         private void OnLogSendButtonClicked(object sender, EventArgs args)
