@@ -11,7 +11,7 @@ namespace FrachatBot
 {
     class EventUtils
     {
-        public static async void CopyTextToClipboard(object sender, EventArgs e)
+        public static void CopyTextToClipboard(object sender, EventArgs e)
         {
             if (sender.GetType().Equals(typeof(TextBox)))
             {
