@@ -58,13 +58,13 @@
             this.LogTextBox = new System.Windows.Forms.TextBox();
             this.LogLabel = new System.Windows.Forms.Label();
             this.BotStatusLabel = new System.Windows.Forms.Label();
+            this.DebugTab = new System.Windows.Forms.TabPage();
+            this.DebugTestingButton = new System.Windows.Forms.Button();
             this.FrachatBotTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.FrachatBotSystemTrayContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ShowFrachatBotMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitFrachatBotMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AutomatedLogFileSelectDialog = new System.Windows.Forms.OpenFileDialog();
-            this.DebugTab = new System.Windows.Forms.TabPage();
-            this.DebugTestingButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ManualTabSplitContainer)).BeginInit();
             this.ManualTabSplitContainer.Panel1.SuspendLayout();
             this.ManualTabSplitContainer.Panel2.SuspendLayout();
@@ -78,8 +78,8 @@
             this.BotUploadGroupBox.SuspendLayout();
             this.StepTwoGroupBox.SuspendLayout();
             this.StepOneGroupBox.SuspendLayout();
-            this.FrachatBotSystemTrayContextMenu.SuspendLayout();
             this.DebugTab.SuspendLayout();
+            this.FrachatBotSystemTrayContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // ManualTabSplitContainer
@@ -191,7 +191,7 @@
             this.DebugTabPage.Location = new System.Drawing.Point(4, 33);
             this.DebugTabPage.Name = "DebugTabPage";
             this.DebugTabPage.Padding = new System.Windows.Forms.Padding(5);
-            this.DebugTabPage.Size = new System.Drawing.Size(738, 847);
+            this.DebugTabPage.Size = new System.Drawing.Size(738, 836);
             this.DebugTabPage.TabIndex = 1;
             this.DebugTabPage.Text = "DebugTabPage";
             this.DebugTabPage.UseVisualStyleBackColor = true;
@@ -203,7 +203,7 @@
             this.DebugFlowLayoutGroup.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.DebugFlowLayoutGroup.Location = new System.Drawing.Point(5, 5);
             this.DebugFlowLayoutGroup.Name = "DebugFlowLayoutGroup";
-            this.DebugFlowLayoutGroup.Size = new System.Drawing.Size(728, 837);
+            this.DebugFlowLayoutGroup.Size = new System.Drawing.Size(728, 826);
             this.DebugFlowLayoutGroup.TabIndex = 0;
             this.DebugFlowLayoutGroup.WrapContents = false;
             // 
@@ -423,6 +423,26 @@
             this.BotStatusLabel.TabIndex = 0;
             this.BotStatusLabel.Text = "Bot Status:";
             // 
+            // DebugTab
+            // 
+            this.DebugTab.Controls.Add(this.DebugTestingButton);
+            this.DebugTab.Location = new System.Drawing.Point(4, 33);
+            this.DebugTab.Name = "DebugTab";
+            this.DebugTab.Padding = new System.Windows.Forms.Padding(3);
+            this.DebugTab.Size = new System.Drawing.Size(1131, 879);
+            this.DebugTab.TabIndex = 2;
+            this.DebugTab.Text = "Debug";
+            this.DebugTab.UseVisualStyleBackColor = true;
+            // 
+            // DebugTestingButton
+            // 
+            this.DebugTestingButton.Location = new System.Drawing.Point(8, 6);
+            this.DebugTestingButton.Name = "DebugTestingButton";
+            this.DebugTestingButton.Size = new System.Drawing.Size(487, 100);
+            this.DebugTestingButton.TabIndex = 0;
+            this.DebugTestingButton.Text = "Button for testing whatever is in Click";
+            this.DebugTestingButton.UseVisualStyleBackColor = true;
+            // 
             // FrachatBotTrayIcon
             // 
             this.FrachatBotTrayIcon.BalloonTipText = "FrachatBot sleep mode";
@@ -459,26 +479,6 @@
             // 
             this.AutomatedLogFileSelectDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.LoadSelectedFileIntoTextbox);
             // 
-            // DebugTab
-            // 
-            this.DebugTab.Controls.Add(this.DebugTestingButton);
-            this.DebugTab.Location = new System.Drawing.Point(4, 33);
-            this.DebugTab.Name = "DebugTab";
-            this.DebugTab.Padding = new System.Windows.Forms.Padding(3);
-            this.DebugTab.Size = new System.Drawing.Size(1131, 879);
-            this.DebugTab.TabIndex = 2;
-            this.DebugTab.Text = "Debug";
-            this.DebugTab.UseVisualStyleBackColor = true;
-            // 
-            // DebugTestingButton
-            // 
-            this.DebugTestingButton.Location = new System.Drawing.Point(8, 6);
-            this.DebugTestingButton.Name = "DebugTestingButton";
-            this.DebugTestingButton.Size = new System.Drawing.Size(487, 100);
-            this.DebugTestingButton.TabIndex = 0;
-            this.DebugTestingButton.Text = "Button for testing whatever is in Click";
-            this.DebugTestingButton.UseVisualStyleBackColor = true;
-            // 
             // FrachatBotForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -505,8 +505,8 @@
             this.StepTwoGroupBox.PerformLayout();
             this.StepOneGroupBox.ResumeLayout(false);
             this.StepOneGroupBox.PerformLayout();
-            this.FrachatBotSystemTrayContextMenu.ResumeLayout(false);
             this.DebugTab.ResumeLayout(false);
+            this.FrachatBotSystemTrayContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
