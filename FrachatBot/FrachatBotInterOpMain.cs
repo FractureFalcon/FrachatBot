@@ -175,12 +175,12 @@ namespace FrachatBot
         private async Task OnLogEvent(LogMessage message)
         {
             Console.WriteLine($"DiscordLogEvent: {message}");
-            _ = LogLineToConsole(message.ToString());
+            await LogLineToConsole(message.ToString());
         }
 
         private async Task LogLineToConsole(string message)
         {
-            _ = frachatBotForm.LogLine(message);
+            await frachatBotForm.LogLine(message);
         }
 
         private async void OnApplicationClose(object sender, EventArgs args)
