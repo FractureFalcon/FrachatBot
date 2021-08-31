@@ -52,7 +52,7 @@
             this.ServerSelectDropDown = new System.Windows.Forms.ComboBox();
             this.StepOneGroupBox = new System.Windows.Forms.GroupBox();
             this.BotLogInputTextBox = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.AutomatedLogFileSelectButton = new System.Windows.Forms.Button();
             this.BotManualUploadLabel = new System.Windows.Forms.Label();
             this.OrLabel = new System.Windows.Forms.Label();
             this.LogTextBox = new System.Windows.Forms.TextBox();
@@ -62,6 +62,9 @@
             this.FrachatBotSystemTrayContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ShowFrachatBotMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitFrachatBotMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AutomatedLogFileSelectDialog = new System.Windows.Forms.OpenFileDialog();
+            this.DebugTab = new System.Windows.Forms.TabPage();
+            this.DebugTestingButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ManualTabSplitContainer)).BeginInit();
             this.ManualTabSplitContainer.Panel1.SuspendLayout();
             this.ManualTabSplitContainer.Panel2.SuspendLayout();
@@ -76,6 +79,7 @@
             this.StepTwoGroupBox.SuspendLayout();
             this.StepOneGroupBox.SuspendLayout();
             this.FrachatBotSystemTrayContextMenu.SuspendLayout();
+            this.DebugTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // ManualTabSplitContainer
@@ -187,7 +191,7 @@
             this.DebugTabPage.Location = new System.Drawing.Point(4, 33);
             this.DebugTabPage.Name = "DebugTabPage";
             this.DebugTabPage.Padding = new System.Windows.Forms.Padding(5);
-            this.DebugTabPage.Size = new System.Drawing.Size(738, 836);
+            this.DebugTabPage.Size = new System.Drawing.Size(738, 847);
             this.DebugTabPage.TabIndex = 1;
             this.DebugTabPage.Text = "DebugTabPage";
             this.DebugTabPage.UseVisualStyleBackColor = true;
@@ -199,7 +203,7 @@
             this.DebugFlowLayoutGroup.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.DebugFlowLayoutGroup.Location = new System.Drawing.Point(5, 5);
             this.DebugFlowLayoutGroup.Name = "DebugFlowLayoutGroup";
-            this.DebugFlowLayoutGroup.Size = new System.Drawing.Size(728, 826);
+            this.DebugFlowLayoutGroup.Size = new System.Drawing.Size(728, 837);
             this.DebugFlowLayoutGroup.TabIndex = 0;
             this.DebugFlowLayoutGroup.WrapContents = false;
             // 
@@ -207,6 +211,7 @@
             // 
             this.UploadMethodTabControl.Controls.Add(this.ManualTab);
             this.UploadMethodTabControl.Controls.Add(this.AutomatedTab);
+            this.UploadMethodTabControl.Controls.Add(this.DebugTab);
             this.UploadMethodTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.UploadMethodTabControl.Location = new System.Drawing.Point(0, 0);
             this.UploadMethodTabControl.Name = "UploadMethodTabControl";
@@ -329,7 +334,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StepOneGroupBox.Controls.Add(this.BotLogInputTextBox);
-            this.StepOneGroupBox.Controls.Add(this.button1);
+            this.StepOneGroupBox.Controls.Add(this.AutomatedLogFileSelectButton);
             this.StepOneGroupBox.Controls.Add(this.BotManualUploadLabel);
             this.StepOneGroupBox.Controls.Add(this.OrLabel);
             this.StepOneGroupBox.Location = new System.Drawing.Point(6, 19);
@@ -354,15 +359,15 @@
             this.BotLogInputTextBox.Text = "";
             this.BotLogInputTextBox.TextChanged += new System.EventHandler(this.OnLogModified);
             // 
-            // button1
+            // AutomatedLogFileSelectButton
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(11, 425);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(528, 51);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Select the log file here (Opens a file dialog)";
-            this.button1.UseVisualStyleBackColor = true;
+            this.AutomatedLogFileSelectButton.Location = new System.Drawing.Point(11, 425);
+            this.AutomatedLogFileSelectButton.Name = "AutomatedLogFileSelectButton";
+            this.AutomatedLogFileSelectButton.Size = new System.Drawing.Size(528, 51);
+            this.AutomatedLogFileSelectButton.TabIndex = 5;
+            this.AutomatedLogFileSelectButton.Text = "Select the log file here (Opens a file dialog)";
+            this.AutomatedLogFileSelectButton.UseVisualStyleBackColor = true;
+            this.AutomatedLogFileSelectButton.Click += new System.EventHandler(this.LaunchAutomatedFileSelectDialog);
             // 
             // BotManualUploadLabel
             // 
@@ -450,6 +455,31 @@
             this.ExitFrachatBotMenuItem.Text = "Close FrachatBot";
             this.ExitFrachatBotMenuItem.Click += new System.EventHandler(this.CloseFrachatBot);
             // 
+            // AutomatedLogFileSelectDialog
+            // 
+            this.AutomatedLogFileSelectDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.LoadSelectedFileIntoTextbox);
+            // 
+            // DebugTab
+            // 
+            this.DebugTab.Controls.Add(this.DebugTestingButton);
+            this.DebugTab.Location = new System.Drawing.Point(4, 33);
+            this.DebugTab.Name = "DebugTab";
+            this.DebugTab.Padding = new System.Windows.Forms.Padding(3);
+            this.DebugTab.Size = new System.Drawing.Size(1131, 879);
+            this.DebugTab.TabIndex = 2;
+            this.DebugTab.Text = "Debug";
+            this.DebugTab.UseVisualStyleBackColor = true;
+            // 
+            // DebugTestingButton
+            // 
+            this.DebugTestingButton.Location = new System.Drawing.Point(8, 6);
+            this.DebugTestingButton.Name = "DebugTestingButton";
+            this.DebugTestingButton.Size = new System.Drawing.Size(487, 100);
+            this.DebugTestingButton.TabIndex = 0;
+            this.DebugTestingButton.Text = "Button for testing whatever is in Click";
+            this.DebugTestingButton.UseVisualStyleBackColor = true;
+            this.DebugTestingButton.Click += new System.EventHandler(this.TestInfiniteSTAAction);
+            // 
             // FrachatBotForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -477,6 +507,7 @@
             this.StepOneGroupBox.ResumeLayout(false);
             this.StepOneGroupBox.PerformLayout();
             this.FrachatBotSystemTrayContextMenu.ResumeLayout(false);
+            this.DebugTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -507,13 +538,16 @@
         private System.Windows.Forms.ComboBox ServerSelectDropDown;
         private System.Windows.Forms.GroupBox StepOneGroupBox;
         private System.Windows.Forms.RichTextBox BotLogInputTextBox;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button AutomatedLogFileSelectButton;
         private System.Windows.Forms.Label BotManualUploadLabel;
         private System.Windows.Forms.Label OrLabel;
         private System.Windows.Forms.NotifyIcon FrachatBotTrayIcon;
         private System.Windows.Forms.ContextMenuStrip FrachatBotSystemTrayContextMenu;
         private System.Windows.Forms.ToolStripMenuItem ShowFrachatBotMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ExitFrachatBotMenuItem;
+        private System.Windows.Forms.OpenFileDialog AutomatedLogFileSelectDialog;
+        private System.Windows.Forms.TabPage DebugTab;
+        private System.Windows.Forms.Button DebugTestingButton;
     }
 }
 

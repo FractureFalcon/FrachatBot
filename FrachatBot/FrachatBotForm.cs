@@ -2,7 +2,9 @@
 using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -175,6 +177,32 @@ namespace FrachatBot
         private void OnLogSendButtonClicked(object sender, EventArgs args)
         {
             EventUtils.SendEventHandlerEventSafe(LogSendEvent, sender, args);
+        }
+
+        private async void LaunchAutomatedFileSelectDialog(object sender, EventArgs args)
+        {
+            await EventUtils.RunActionOnSTAThread(() => AutomatedLogFileSelectDialog.ShowDialog());
+        }
+
+        private void LoadSelectedFileIntoTextbox(object sender, CancelEventArgs args)
+        {
+            string fileContents = null;
+            try
+            {
+                fileContents = File.ReadAllText(AutomatedLogFileSelectDialog.FileName);
+            }
+            catch (Exception e)
+            {
+                LogLine($"{e.GetType().Name}: {e.Message}");
+                LogLine($"Exception occurred while loading log file {AutomatedLogFileSelectDialog.FileName}, please try again.");
+            }
+
+            if (string.IsNullOrWhiteSpace(fileContents))
+            {
+                return;
+            }
+
+            BotLogInputTextBox.InvokeWithRequiredCheck(() => BotLogInputTextBox.Text = fileContents);
         }
         #endregion
 
