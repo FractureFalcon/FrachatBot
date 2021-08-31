@@ -35,10 +35,22 @@ namespace FrachatBot
             staThread.SetApartmentState(ApartmentState.STA);
             staThread.IsBackground = true;
             staThread.Start();
+
+            const int timeout = 10000;
+            const int threadCheckTime = 100;
+
+            int timeWaited = 0;
             while (staThread.ThreadState != ThreadState.Stopped)
             {
-                await Task.Delay(100);
+                await Task.Delay(threadCheckTime);
+                timeWaited += threadCheckTime;
+                if (timeWaited > timeout)
+                {
+                    staThread.Abort();
+                    onCompletion?.Invoke();
+                }
             }
+
             onCompletion?.Invoke();
         }
 
