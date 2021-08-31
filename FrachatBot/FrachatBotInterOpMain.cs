@@ -26,10 +26,10 @@ namespace FrachatBot
 
         public static void Main(string[] args)
         {
-            new FrachatBotInterOpMain().MainAsync().GetAwaiter().GetResult();
+            new FrachatBotInterOpMain().Initialize();
         }
 
-        public async Task MainAsync()
+        public void Initialize()
         {
             this.chattyHeartBeat = new ChattyHeartBeat();
 
