@@ -39,7 +39,7 @@ namespace FrachatBot
             {
                 await Task.Delay(100);
             }
-            onCompletion.Invoke();
+            onCompletion?.Invoke();
         }
 
         public static void SendEventHandlerEventSafe(EventHandler eventType, object sender, EventArgs args)
