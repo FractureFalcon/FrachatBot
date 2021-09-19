@@ -81,6 +81,10 @@ namespace FrachatBot
 
             frachatBotForm.PopulateServerList(discordClient.Guilds);
 
+            frachatBotForm.ServerSelected -= OnServerSelected;
+            frachatBotForm.ChannelSelected -= OnChannelSelected;
+            frachatBotForm.LogSendEvent -= TrySendLogs;
+
             frachatBotForm.ServerSelected += OnServerSelected;
             frachatBotForm.ChannelSelected += OnChannelSelected;
             frachatBotForm.LogSendEvent += TrySendLogs;
