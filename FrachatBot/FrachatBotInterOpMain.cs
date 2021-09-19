@@ -55,29 +55,33 @@ namespace FrachatBot
             Application.Run(frachatBotForm);
         }
 
-        private async Task OnClientConnected()
+        private Task OnClientConnected()
         {
-            await frachatBotForm.SetBotStatus("Connected");
+            frachatBotForm.SetBotStatus("Connected");
+            return Task.CompletedTask;
         }
 
-        private async Task OnClientDisconnected(Exception e)
+        private Task OnClientDisconnected(Exception e)
         {
-            await frachatBotForm.SetBotStatus("Disconnected");
+            frachatBotForm.SetBotStatus("Disconnected");
+            return Task.CompletedTask;
         }
 
-        private async Task OnClientLoggedIn()
+        private Task OnClientLoggedIn()
         {
-            await frachatBotForm.SetBotStatus("Logged in");
+            frachatBotForm.SetBotStatus("Logged in");
+            return Task.CompletedTask;
         }
 
-        private async Task OnClientLoggedOut()
+        private Task OnClientLoggedOut()
         {
-            await frachatBotForm.SetBotStatus("Logged out");
+            frachatBotForm.SetBotStatus("Logged out");
+            return Task.CompletedTask;
         }
 
-        private async Task OnClientReady()
+        private Task OnClientReady()
         {
-            await frachatBotForm.SetBotStatus("Ready");
+            frachatBotForm.SetBotStatus("Ready");
 
             frachatBotForm.PopulateServerList(discordClient.Guilds);
 
@@ -88,6 +92,8 @@ namespace FrachatBot
             frachatBotForm.ServerSelected += OnServerSelected;
             frachatBotForm.ChannelSelected += OnChannelSelected;
             frachatBotForm.LogSendEvent += TrySendLogs;
+
+            return Task.CompletedTask;
         }
 
         private void OnLogModified(object sender, EventArgs args)

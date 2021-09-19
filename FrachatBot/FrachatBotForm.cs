@@ -91,12 +91,11 @@ namespace FrachatBot
             return Task.CompletedTask;
         }
 
-        public Task SetBotStatus(string status)
+        public void SetBotStatus(string status)
         {
             const string botStatusHeader = "Bot Status: ";
             string newStatus = $"{botStatusHeader} {status}";
             SetBotStatusTextSafe(newStatus);
-            return Task.CompletedTask;
         }
 
         public void SetBotStatusTextSafe(string text)
