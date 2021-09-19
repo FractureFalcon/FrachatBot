@@ -18,7 +18,6 @@ namespace FrachatBot
         private DiscordSocketClient discordClient;
         private SocketGuild targetServer;
         private SocketGuildChannel targetChannel;
-        private ChattyHeartBeat chattyHeartBeat;
         private string logToSend;
 
         // Deadname myself instead of committing my secrets to GitHub, the dedication
@@ -31,8 +30,6 @@ namespace FrachatBot
 
         public void Initialize()
         {
-            this.chattyHeartBeat = new ChattyHeartBeat();
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

@@ -95,7 +95,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChattyHeartBeat.cs" />
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="DiscordSocketClientExtensions.cs" />
     <Compile Include="DiscordTextPostData.cs" />
