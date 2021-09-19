@@ -156,28 +156,57 @@ namespace FrachatBot
             }
 
             List<string> logChunks = SplitLog(logToSend);
+            frachatBotForm.ToggleSendLogButtonFunctionality(false);
 
             foreach (string logChunk in logChunks)
             {
-                IUserMessage messageResult = null;
+                await TrySendLogChunk(messageChannel, logChunk);
+            }
+
+            frachatBotForm.ToggleSendLogButtonFunctionality(true);
+        }
+
+        private async Task TrySendLogChunk(IMessageChannel messageChannel, string logChunk, int maxRetries = 10)
+        {
+            bool success = false;
+            IUserMessage messageResult = null;
+            int tries = 0;
+
+            while (!success)
+            {
+                tries += 1;
+
                 try
                 {
                     messageResult = await messageChannel.SendMessageAsync($"```{logChunk}```");
                 }
                 catch (Exception e)
                 {
-                    await LogLineToConsole(e.Message);
-                    return;
+                    await LogLineToConsole($"SendMessageAsync threw exception {e.ToString()}: {e.Message}");
                 }
 
                 if (messageResult == null)
                 {
                     await LogLineToConsole("messageResult from SendMessageAsync was null");
-                    return;
                 }
                 else
                 {
-                    await LogLineToConsole($"SendMessageAsync returned {messageResult.Id} created at {messageResult.Timestamp} ({messageResult.Content.Substring(0, Math.Min(messageResult.Content.Length, 50))}...)");
+                    int previewLength = Math.Min(messageResult.Content.Length, messageResult.Content.IndexOf(Environment.NewLine));
+                    previewLength = Math.Min(previewLength, 50);
+                    await LogLineToConsole($"SendMessageAsync returned {messageResult.Id} @ {messageResult.Timestamp}: {messageResult.Content.Substring(0, previewLength)}...");
+                    success = true;
+                }
+
+                if (!success)
+                {
+                    if (tries >= maxRetries)
+                    {
+                        await LogLineToConsole($"LOG CHUNK FAILED TO UPLOAD AFTER {maxRetries} ATTEMPTS:");
+                        await LogLineToConsole($"```{logChunk}```");
+                        return;
+                    }
+
+                    await Task.Delay(1000);
                 }
             }
         }
