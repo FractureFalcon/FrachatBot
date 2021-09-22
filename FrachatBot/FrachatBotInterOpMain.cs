@@ -79,16 +79,23 @@ namespace FrachatBot
             return Task.CompletedTask;
         }
 
+        private void RefreshServerList(object sender, EventArgs args)
+        {
+            frachatBotForm.PopulateServerList(discordClient.Guilds);
+        }
+
         private Task OnClientReady()
         {
             frachatBotForm.SetBotStatus("Ready");
 
-            frachatBotForm.PopulateServerList(discordClient.Guilds);
+            RefreshServerList(null, null);
 
+            frachatBotForm.ServerRefresh -= RefreshServerList;
             frachatBotForm.ServerSelected -= OnServerSelected;
             frachatBotForm.ChannelSelected -= OnChannelSelected;
             frachatBotForm.LogSendEvent -= TrySendLogs;
 
+            frachatBotForm.ServerRefresh += RefreshServerList;
             frachatBotForm.ServerSelected += OnServerSelected;
             frachatBotForm.ChannelSelected += OnChannelSelected;
             frachatBotForm.LogSendEvent += TrySendLogs;

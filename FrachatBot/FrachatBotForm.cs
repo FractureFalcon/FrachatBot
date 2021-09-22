@@ -79,6 +79,7 @@ namespace FrachatBot
         #region Automation-side code
 
         public delegate void DropDownSelectedEvent(ComboBox sender, EventArgs eventArgs);
+        public event EventHandler ServerRefresh;
         public event DropDownSelectedEvent ServerSelected;
         public event DropDownSelectedEvent ChannelSelected;
         public event EventHandler LogSendEvent;
@@ -156,6 +157,11 @@ namespace FrachatBot
                     dropDown.Enabled = true;
                 });
             });
+        }
+
+        public void ServerRefreshRequested(object sender, EventArgs args)
+        {
+            EventUtils.SendEventHandlerEventSafe(ServerRefresh, sender, args);
         }
 
         public void PopulateServerList(IReadOnlyCollection<SocketEntity<UInt64>> items)
