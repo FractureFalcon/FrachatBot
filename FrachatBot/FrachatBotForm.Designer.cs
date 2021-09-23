@@ -55,9 +55,10 @@
             this.AutomatedLogFileSelectButton = new System.Windows.Forms.Button();
             this.BotManualUploadLabel = new System.Windows.Forms.Label();
             this.OrLabel = new System.Windows.Forms.Label();
-            this.LogTextBox = new System.Windows.Forms.TextBox();
+            this.DiscordLogTextBox = new System.Windows.Forms.TextBox();
             this.LogLabel = new System.Windows.Forms.Label();
             this.BotStatusLabel = new System.Windows.Forms.Label();
+            this.TwitchTabPage = new System.Windows.Forms.TabPage();
             this.DebugTab = new System.Windows.Forms.TabPage();
             this.DebugTestingButton = new System.Windows.Forms.Button();
             this.FrachatBotTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -98,7 +99,7 @@
             // ManualTabSplitContainer.Panel2
             // 
             this.ManualTabSplitContainer.Panel2.Controls.Add(this.LogOutputTabGroup);
-            this.ManualTabSplitContainer.Size = new System.Drawing.Size(1125, 873);
+            this.ManualTabSplitContainer.Size = new System.Drawing.Size(1125, 884);
             this.ManualTabSplitContainer.SplitterDistance = 375;
             this.ManualTabSplitContainer.TabIndex = 4;
             // 
@@ -124,14 +125,14 @@
             this.LogInputTextBox.Margin = new System.Windows.Forms.Padding(5);
             this.LogInputTextBox.Name = "LogInputTextBox";
             this.LogInputTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.LogInputTextBox.Size = new System.Drawing.Size(367, 797);
+            this.LogInputTextBox.Size = new System.Drawing.Size(367, 808);
             this.LogInputTextBox.TabIndex = 1;
             this.LogInputTextBox.Text = "";
             // 
             // LogSplitButton
             // 
             this.LogSplitButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.LogSplitButton.Location = new System.Drawing.Point(0, 846);
+            this.LogSplitButton.Location = new System.Drawing.Point(0, 857);
             this.LogSplitButton.Name = "LogSplitButton";
             this.LogSplitButton.Size = new System.Drawing.Size(375, 27);
             this.LogSplitButton.TabIndex = 2;
@@ -146,7 +147,7 @@
             this.LogInputLabel.Location = new System.Drawing.Point(0, 0);
             this.LogInputLabel.Margin = new System.Windows.Forms.Padding(3);
             this.LogInputLabel.Name = "LogInputLabel";
-            this.LogInputLabel.Size = new System.Drawing.Size(143, 25);
+            this.LogInputLabel.Size = new System.Drawing.Size(78, 13);
             this.LogInputLabel.TabIndex = 0;
             this.LogInputLabel.Text = "Paste log here:";
             // 
@@ -158,16 +159,16 @@
             this.LogOutputTabGroup.Location = new System.Drawing.Point(0, 0);
             this.LogOutputTabGroup.Name = "LogOutputTabGroup";
             this.LogOutputTabGroup.SelectedIndex = 0;
-            this.LogOutputTabGroup.Size = new System.Drawing.Size(746, 873);
+            this.LogOutputTabGroup.Size = new System.Drawing.Size(746, 884);
             this.LogOutputTabGroup.TabIndex = 1;
             // 
             // NormalTabPage
             // 
             this.NormalTabPage.Controls.Add(this.NormalTabFlowLayoutGroup);
-            this.NormalTabPage.Location = new System.Drawing.Point(4, 33);
+            this.NormalTabPage.Location = new System.Drawing.Point(4, 22);
             this.NormalTabPage.Name = "NormalTabPage";
             this.NormalTabPage.Padding = new System.Windows.Forms.Padding(5);
-            this.NormalTabPage.Size = new System.Drawing.Size(738, 836);
+            this.NormalTabPage.Size = new System.Drawing.Size(738, 858);
             this.NormalTabPage.TabIndex = 0;
             this.NormalTabPage.Text = "Normal";
             this.NormalTabPage.UseVisualStyleBackColor = true;
@@ -181,17 +182,17 @@
             this.NormalTabFlowLayoutGroup.Location = new System.Drawing.Point(5, 5);
             this.NormalTabFlowLayoutGroup.Name = "NormalTabFlowLayoutGroup";
             this.NormalTabFlowLayoutGroup.Padding = new System.Windows.Forms.Padding(5);
-            this.NormalTabFlowLayoutGroup.Size = new System.Drawing.Size(728, 826);
+            this.NormalTabFlowLayoutGroup.Size = new System.Drawing.Size(728, 848);
             this.NormalTabFlowLayoutGroup.TabIndex = 1;
             this.NormalTabFlowLayoutGroup.WrapContents = false;
             // 
             // DebugTabPage
             // 
             this.DebugTabPage.Controls.Add(this.DebugFlowLayoutGroup);
-            this.DebugTabPage.Location = new System.Drawing.Point(4, 33);
+            this.DebugTabPage.Location = new System.Drawing.Point(4, 22);
             this.DebugTabPage.Name = "DebugTabPage";
             this.DebugTabPage.Padding = new System.Windows.Forms.Padding(5);
-            this.DebugTabPage.Size = new System.Drawing.Size(738, 836);
+            this.DebugTabPage.Size = new System.Drawing.Size(738, 858);
             this.DebugTabPage.TabIndex = 1;
             this.DebugTabPage.Text = "DebugTabPage";
             this.DebugTabPage.UseVisualStyleBackColor = true;
@@ -203,7 +204,7 @@
             this.DebugFlowLayoutGroup.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.DebugFlowLayoutGroup.Location = new System.Drawing.Point(5, 5);
             this.DebugFlowLayoutGroup.Name = "DebugFlowLayoutGroup";
-            this.DebugFlowLayoutGroup.Size = new System.Drawing.Size(728, 826);
+            this.DebugFlowLayoutGroup.Size = new System.Drawing.Size(728, 848);
             this.DebugFlowLayoutGroup.TabIndex = 0;
             this.DebugFlowLayoutGroup.WrapContents = false;
             // 
@@ -211,6 +212,7 @@
             // 
             this.UploadMethodTabControl.Controls.Add(this.ManualTab);
             this.UploadMethodTabControl.Controls.Add(this.AutomatedTab);
+            this.UploadMethodTabControl.Controls.Add(this.TwitchTabPage);
             this.UploadMethodTabControl.Controls.Add(this.DebugTab);
             this.UploadMethodTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.UploadMethodTabControl.Location = new System.Drawing.Point(0, 0);
@@ -222,10 +224,10 @@
             // ManualTab
             // 
             this.ManualTab.Controls.Add(this.ManualTabSplitContainer);
-            this.ManualTab.Location = new System.Drawing.Point(4, 33);
+            this.ManualTab.Location = new System.Drawing.Point(4, 22);
             this.ManualTab.Name = "ManualTab";
             this.ManualTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ManualTab.Size = new System.Drawing.Size(1131, 879);
+            this.ManualTab.Size = new System.Drawing.Size(1131, 890);
             this.ManualTab.TabIndex = 0;
             this.ManualTab.Text = "Manual";
             this.ManualTab.UseVisualStyleBackColor = true;
@@ -233,13 +235,13 @@
             // AutomatedTab
             // 
             this.AutomatedTab.Controls.Add(this.BotUploadGroupBox);
-            this.AutomatedTab.Controls.Add(this.LogTextBox);
+            this.AutomatedTab.Controls.Add(this.DiscordLogTextBox);
             this.AutomatedTab.Controls.Add(this.LogLabel);
             this.AutomatedTab.Controls.Add(this.BotStatusLabel);
-            this.AutomatedTab.Location = new System.Drawing.Point(4, 33);
+            this.AutomatedTab.Location = new System.Drawing.Point(4, 22);
             this.AutomatedTab.Name = "AutomatedTab";
             this.AutomatedTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AutomatedTab.Size = new System.Drawing.Size(1131, 879);
+            this.AutomatedTab.Size = new System.Drawing.Size(1131, 890);
             this.AutomatedTab.TabIndex = 1;
             this.AutomatedTab.Text = "Automated";
             this.AutomatedTab.UseVisualStyleBackColor = true;
@@ -293,7 +295,7 @@
             this.ChannelSelectDropDown.FormattingEnabled = true;
             this.ChannelSelectDropDown.Location = new System.Drawing.Point(22, 76);
             this.ChannelSelectDropDown.Name = "ChannelSelectDropDown";
-            this.ChannelSelectDropDown.Size = new System.Drawing.Size(505, 32);
+            this.ChannelSelectDropDown.Size = new System.Drawing.Size(505, 21);
             this.ChannelSelectDropDown.TabIndex = 3;
             this.ChannelSelectDropDown.SelectedIndexChanged += new System.EventHandler(this.OnDropDownSelected);
             // 
@@ -302,7 +304,7 @@
             this.ChannelSelectLabel.AutoSize = true;
             this.ChannelSelectLabel.Location = new System.Drawing.Point(6, 59);
             this.ChannelSelectLabel.Name = "ChannelSelectLabel";
-            this.ChannelSelectLabel.Size = new System.Drawing.Size(179, 25);
+            this.ChannelSelectLabel.Size = new System.Drawing.Size(99, 13);
             this.ChannelSelectLabel.TabIndex = 2;
             this.ChannelSelectLabel.Text = "Select the channel:";
             // 
@@ -311,7 +313,7 @@
             this.ServerSelectLabel.AutoSize = true;
             this.ServerSelectLabel.Location = new System.Drawing.Point(6, 17);
             this.ServerSelectLabel.Name = "ServerSelectLabel";
-            this.ServerSelectLabel.Size = new System.Drawing.Size(164, 25);
+            this.ServerSelectLabel.Size = new System.Drawing.Size(90, 13);
             this.ServerSelectLabel.TabIndex = 1;
             this.ServerSelectLabel.Text = "Select the server:";
             // 
@@ -324,7 +326,7 @@
             this.ServerSelectDropDown.FormattingEnabled = true;
             this.ServerSelectDropDown.Location = new System.Drawing.Point(22, 35);
             this.ServerSelectDropDown.Name = "ServerSelectDropDown";
-            this.ServerSelectDropDown.Size = new System.Drawing.Size(505, 32);
+            this.ServerSelectDropDown.Size = new System.Drawing.Size(505, 21);
             this.ServerSelectDropDown.TabIndex = 0;
             this.ServerSelectDropDown.SelectedIndexChanged += new System.EventHandler(this.OnDropDownSelected);
             // 
@@ -374,7 +376,7 @@
             this.BotManualUploadLabel.AutoSize = true;
             this.BotManualUploadLabel.Location = new System.Drawing.Point(8, 18);
             this.BotManualUploadLabel.Name = "BotManualUploadLabel";
-            this.BotManualUploadLabel.Size = new System.Drawing.Size(179, 25);
+            this.BotManualUploadLabel.Size = new System.Drawing.Size(98, 13);
             this.BotManualUploadLabel.TabIndex = 3;
             this.BotManualUploadLabel.Text = "Paste log text here:";
             // 
@@ -387,30 +389,30 @@
             this.OrLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OrLabel.Location = new System.Drawing.Point(256, 396);
             this.OrLabel.Name = "OrLabel";
-            this.OrLabel.Size = new System.Drawing.Size(77, 44);
+            this.OrLabel.Size = new System.Drawing.Size(45, 26);
             this.OrLabel.TabIndex = 4;
             this.OrLabel.Text = "OR";
             this.OrLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // LogTextBox
+            // DiscordLogTextBox
             // 
-            this.LogTextBox.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogTextBox.Location = new System.Drawing.Point(13, 20);
-            this.LogTextBox.Multiline = true;
-            this.LogTextBox.Name = "LogTextBox";
-            this.LogTextBox.ReadOnly = true;
-            this.LogTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.LogTextBox.Size = new System.Drawing.Size(1110, 316);
-            this.LogTextBox.TabIndex = 2;
+            this.DiscordLogTextBox.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DiscordLogTextBox.Location = new System.Drawing.Point(13, 20);
+            this.DiscordLogTextBox.Multiline = true;
+            this.DiscordLogTextBox.Name = "DiscordLogTextBox";
+            this.DiscordLogTextBox.ReadOnly = true;
+            this.DiscordLogTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.DiscordLogTextBox.Size = new System.Drawing.Size(1110, 316);
+            this.DiscordLogTextBox.TabIndex = 2;
             // 
             // LogLabel
             // 
             this.LogLabel.AutoSize = true;
             this.LogLabel.Location = new System.Drawing.Point(3, 3);
             this.LogLabel.Name = "LogLabel";
-            this.LogLabel.Size = new System.Drawing.Size(78, 25);
+            this.LogLabel.Size = new System.Drawing.Size(83, 13);
             this.LogLabel.TabIndex = 1;
-            this.LogLabel.Text = "Bot log:";
+            this.LogLabel.Text = "Discord Bot Log";
             // 
             // BotStatusLabel
             // 
@@ -419,17 +421,27 @@
             this.BotStatusLabel.Location = new System.Drawing.Point(5, 344);
             this.BotStatusLabel.Margin = new System.Windows.Forms.Padding(5);
             this.BotStatusLabel.Name = "BotStatusLabel";
-            this.BotStatusLabel.Size = new System.Drawing.Size(119, 25);
+            this.BotStatusLabel.Size = new System.Drawing.Size(70, 13);
             this.BotStatusLabel.TabIndex = 0;
             this.BotStatusLabel.Text = "Bot Status:";
+            // 
+            // TwitchTabPage
+            // 
+            this.TwitchTabPage.Location = new System.Drawing.Point(4, 22);
+            this.TwitchTabPage.Name = "TwitchTabPage";
+            this.TwitchTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.TwitchTabPage.Size = new System.Drawing.Size(1131, 890);
+            this.TwitchTabPage.TabIndex = 3;
+            this.TwitchTabPage.Text = "Twitch Int.";
+            this.TwitchTabPage.UseVisualStyleBackColor = true;
             // 
             // DebugTab
             // 
             this.DebugTab.Controls.Add(this.DebugTestingButton);
-            this.DebugTab.Location = new System.Drawing.Point(4, 33);
+            this.DebugTab.Location = new System.Drawing.Point(4, 22);
             this.DebugTab.Name = "DebugTab";
             this.DebugTab.Padding = new System.Windows.Forms.Padding(3);
-            this.DebugTab.Size = new System.Drawing.Size(1131, 879);
+            this.DebugTab.Size = new System.Drawing.Size(1131, 890);
             this.DebugTab.TabIndex = 2;
             this.DebugTab.Text = "Debug";
             this.DebugTab.UseVisualStyleBackColor = true;
@@ -459,19 +471,19 @@
             this.ShowFrachatBotMenuItem,
             this.ExitFrachatBotMenuItem});
             this.FrachatBotSystemTrayContextMenu.Name = "FrachatBotSystemTrayContextMenu";
-            this.FrachatBotSystemTrayContextMenu.Size = new System.Drawing.Size(372, 76);
+            this.FrachatBotSystemTrayContextMenu.Size = new System.Drawing.Size(239, 48);
             // 
             // ShowFrachatBotMenuItem
             // 
             this.ShowFrachatBotMenuItem.Name = "ShowFrachatBotMenuItem";
-            this.ShowFrachatBotMenuItem.Size = new System.Drawing.Size(371, 36);
+            this.ShowFrachatBotMenuItem.Size = new System.Drawing.Size(238, 22);
             this.ShowFrachatBotMenuItem.Text = "Show FrachatBot Control Panel";
             this.ShowFrachatBotMenuItem.Click += new System.EventHandler(this.TwitchLogSplitterForm_ReturnFromTray);
             // 
             // ExitFrachatBotMenuItem
             // 
             this.ExitFrachatBotMenuItem.Name = "ExitFrachatBotMenuItem";
-            this.ExitFrachatBotMenuItem.Size = new System.Drawing.Size(371, 36);
+            this.ExitFrachatBotMenuItem.Size = new System.Drawing.Size(238, 22);
             this.ExitFrachatBotMenuItem.Text = "Close FrachatBot";
             this.ExitFrachatBotMenuItem.Click += new System.EventHandler(this.CloseFrachatBot);
             // 
@@ -526,7 +538,7 @@
         private System.Windows.Forms.RichTextBox LogInputTextBox;
         private System.Windows.Forms.SplitContainer ManualTabSplitContainer;
         private System.Windows.Forms.Label BotStatusLabel;
-        private System.Windows.Forms.TextBox LogTextBox;
+        private System.Windows.Forms.TextBox DiscordLogTextBox;
         private System.Windows.Forms.Label LogLabel;
         private System.Windows.Forms.GroupBox BotUploadGroupBox;
         private System.Windows.Forms.GroupBox StepTwoGroupBox;
@@ -547,6 +559,7 @@
         private System.Windows.Forms.OpenFileDialog AutomatedLogFileSelectDialog;
         private System.Windows.Forms.TabPage DebugTab;
         private System.Windows.Forms.Button DebugTestingButton;
+        private System.Windows.Forms.TabPage TwitchTabPage;
     }
 }
 

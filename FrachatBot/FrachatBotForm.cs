@@ -86,7 +86,7 @@ namespace FrachatBot
 
         public Task LogLine(string message)
         {
-            LogTextBox.InvokeWithRequiredCheck(() => LogTextBox.AppendText($"{message}{Environment.NewLine}"));
+            DiscordLogTextBox.InvokeWithRequiredCheck(() => DiscordLogTextBox.AppendText($"{message}{Environment.NewLine}"));
 
             return Task.CompletedTask;
         }
