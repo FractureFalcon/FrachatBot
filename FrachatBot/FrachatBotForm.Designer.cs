@@ -192,7 +192,7 @@
             this.DebugTabPage.Location = new System.Drawing.Point(4, 22);
             this.DebugTabPage.Name = "DebugTabPage";
             this.DebugTabPage.Padding = new System.Windows.Forms.Padding(5);
-            this.DebugTabPage.Size = new System.Drawing.Size(738, 858);
+            this.DebugTabPage.Size = new System.Drawing.Size(738, 847);
             this.DebugTabPage.TabIndex = 1;
             this.DebugTabPage.Text = "DebugTabPage";
             this.DebugTabPage.UseVisualStyleBackColor = true;
@@ -204,7 +204,7 @@
             this.DebugFlowLayoutGroup.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.DebugFlowLayoutGroup.Location = new System.Drawing.Point(5, 5);
             this.DebugFlowLayoutGroup.Name = "DebugFlowLayoutGroup";
-            this.DebugFlowLayoutGroup.Size = new System.Drawing.Size(728, 848);
+            this.DebugFlowLayoutGroup.Size = new System.Drawing.Size(728, 837);
             this.DebugFlowLayoutGroup.TabIndex = 0;
             this.DebugFlowLayoutGroup.WrapContents = false;
             // 
@@ -329,6 +329,7 @@
             this.ServerSelectDropDown.Size = new System.Drawing.Size(505, 21);
             this.ServerSelectDropDown.TabIndex = 0;
             this.ServerSelectDropDown.SelectedIndexChanged += new System.EventHandler(this.OnDropDownSelected);
+            this.ServerSelectDropDown.Click += new System.EventHandler(this.ServerRefreshRequested);
             // 
             // StepOneGroupBox
             // 
@@ -410,7 +411,7 @@
             this.LogLabel.AutoSize = true;
             this.LogLabel.Location = new System.Drawing.Point(3, 3);
             this.LogLabel.Name = "LogLabel";
-            this.LogLabel.Size = new System.Drawing.Size(83, 13);
+            this.LogLabel.Size = new System.Drawing.Size(43, 13);
             this.LogLabel.TabIndex = 1;
             this.LogLabel.Text = "Discord Bot Log";
             // 
