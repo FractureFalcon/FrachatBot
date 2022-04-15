@@ -12,7 +12,6 @@ using System.Windows.Forms;
 
 namespace FrachatBot
 {
-    
     public partial class FrachatBotForm : Form
     {
         #region Manual-side UI code
@@ -76,35 +75,35 @@ namespace FrachatBot
         }
         #endregion
 
-        #region Automation-side code
+        #region Discord UI code
 
         public delegate void DropDownSelectedEvent(ComboBox sender, EventArgs eventArgs);
-        public event EventHandler ServerRefresh;
-        public event DropDownSelectedEvent ServerSelected;
-        public event DropDownSelectedEvent ChannelSelected;
+        public event EventHandler DiscordAutomationServerRefresh;
+        public event DropDownSelectedEvent DiscordAutomationServerSelected;
+        public event DropDownSelectedEvent DiscordAutomationChannelSelected;
         public event EventHandler LogSendEvent;
         public event EventHandler LogModifiedEvent;
 
-        public Task LogLine(string message)
+        public Task LogLineToDiscordLog(string message)
         {
             DiscordLogTextBox.InvokeWithRequiredCheck(() => DiscordLogTextBox.AppendText($"{message}{Environment.NewLine}"));
 
             return Task.CompletedTask;
         }
 
-        public void SetBotStatus(string status)
+        public void SetDiscordBotStatus(string status)
         {
             const string botStatusHeader = "Bot Status: ";
             string newStatus = $"{botStatusHeader} {status}";
-            SetBotStatusTextSafe(newStatus);
+            SetDiscordBotStatusTextSafe(newStatus);
         }
 
-        public void SetBotStatusTextSafe(string text)
+        public void SetDiscordBotStatusTextSafe(string text)
         {
             BotStatusLabel.InvokeWithRequiredCheck(() => BotStatusLabel.Text = text);
         }
 
-        private void OnLogModified(object sender, EventArgs args)
+        private void OnDiscordLogModified(object sender, EventArgs args)
         {
             EventUtils.SendEventHandlerEventSafe(LogModifiedEvent, sender, args);
         }
@@ -120,11 +119,11 @@ namespace FrachatBot
             DropDownSelectedEvent dropDownEvent = null;
             if (dropDown.Name == "ServerSelectDropDown")
             {
-                dropDownEvent = ServerSelected;
+                dropDownEvent = DiscordAutomationServerSelected;
             }
             else if (dropDown.Name == "ChannelSelectDropDown")
             {
-                dropDownEvent = ChannelSelected;
+                dropDownEvent = DiscordAutomationChannelSelected;
             }
 
             dropDownEvent?.Invoke(dropDown, e);
@@ -161,17 +160,17 @@ namespace FrachatBot
 
         public void ServerRefreshRequested(object sender, EventArgs args)
         {
-            EventUtils.SendEventHandlerEventSafe(ServerRefresh, sender, args);
+            EventUtils.SendEventHandlerEventSafe(DiscordAutomationServerRefresh, sender, args);
         }
 
-        public void PopulateServerList(IReadOnlyCollection<SocketEntity<UInt64>> items)
+        public void PopulateDiscordAutomationServerList(IReadOnlyCollection<SocketEntity<UInt64>> items)
         {
-            PopulateDropDownList(ServerSelectDropDown, items, "Select a server...");
+            PopulateDropDownList(DiscordAutomationServerSelectDropDown, items, "Select a server...");
         }
 
-        public void PopulateChannelList(IReadOnlyCollection<SocketEntity<UInt64>> items)
+        public void PopulateDiscordAutomationChannelList(IReadOnlyCollection<SocketEntity<UInt64>> items)
         {
-            PopulateDropDownList(ChannelSelectDropDown, items, "Select a channel...");
+            PopulateDropDownList(DiscordAutomationChannelSelectDropDown, items, "Select a channel...");
         }
 
         public void ToggleSendLogButtonFunctionality(Boolean enabled)
@@ -198,8 +197,8 @@ namespace FrachatBot
             }
             catch (Exception e)
             {
-                LogLine($"{e.GetType().Name}: {e.Message}");
-                LogLine($"Exception occurred while loading log file {AutomatedLogFileSelectDialog.FileName}, please try again.");
+                LogLineToDiscordLog($"{e.GetType().Name}: {e.Message}");
+                LogLineToDiscordLog($"Exception occurred while loading log file {AutomatedLogFileSelectDialog.FileName}, please try again.");
             }
 
             if (string.IsNullOrWhiteSpace(fileContents))
@@ -209,6 +208,39 @@ namespace FrachatBot
 
             BotLogInputTextBox.InvokeWithRequiredCheck(() => BotLogInputTextBox.Text = fileContents);
         }
+        #endregion
+
+        #region Twitch UI code
+
+        public Task LogLineToTwitchLog(string message)
+        {
+            TwitchLogTextBox.InvokeWithRequiredCheck(() => TwitchLogTextBox.AppendText($"{message}{Environment.NewLine}"));
+
+            return Task.CompletedTask;
+        }
+
+        public Task LogLineToTwitchChatLog(string message)
+        {
+            TwitchChatTextBox.InvokeWithRequiredCheck(() => TwitchChatTextBox.AppendText($"{message}{Environment.NewLine}"));
+
+            return Task.CompletedTask;
+        }
+
+        public void PopulateStreamConfigServerList(IReadOnlyCollection<SocketEntity<UInt64>> items)
+        {
+            PopulateDropDownList(StreamConfigDiscordServerDropDown, items, "Select a server...");
+        }
+
+        public void PopulateStreamConfigChannelList(IReadOnlyCollection<SocketEntity<UInt64>> items)
+        {
+            PopulateDropDownList(streamConfigDiscordChannelDropDown, items, "Select a channel...");
+        }
+
+        public string GetSelectedStreamConfig()
+        {
+            return StreamConfigKeyListBox.SelectedItem.ToString();
+        }
+
         #endregion
 
         #region System Tray Handlers

@@ -42,14 +42,14 @@
             this.DebugFlowLayoutGroup = new System.Windows.Forms.FlowLayoutPanel();
             this.UploadMethodTabControl = new System.Windows.Forms.TabControl();
             this.ManualTab = new System.Windows.Forms.TabPage();
-            this.AutomatedTab = new System.Windows.Forms.TabPage();
+            this.DiscordTab = new System.Windows.Forms.TabPage();
             this.BotUploadGroupBox = new System.Windows.Forms.GroupBox();
             this.StepTwoGroupBox = new System.Windows.Forms.GroupBox();
             this.SendLogToDiscordButton = new System.Windows.Forms.Button();
-            this.ChannelSelectDropDown = new System.Windows.Forms.ComboBox();
+            this.DiscordAutomationChannelSelectDropDown = new System.Windows.Forms.ComboBox();
             this.ChannelSelectLabel = new System.Windows.Forms.Label();
             this.ServerSelectLabel = new System.Windows.Forms.Label();
-            this.ServerSelectDropDown = new System.Windows.Forms.ComboBox();
+            this.DiscordAutomationServerSelectDropDown = new System.Windows.Forms.ComboBox();
             this.StepOneGroupBox = new System.Windows.Forms.GroupBox();
             this.BotLogInputTextBox = new System.Windows.Forms.RichTextBox();
             this.AutomatedLogFileSelectButton = new System.Windows.Forms.Button();
@@ -59,6 +59,21 @@
             this.LogLabel = new System.Windows.Forms.Label();
             this.BotStatusLabel = new System.Windows.Forms.Label();
             this.TwitchTabPage = new System.Windows.Forms.TabPage();
+            this.TwitchChatTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.TwitchStreamConfigGroupBox = new System.Windows.Forms.GroupBox();
+            this.StreamConfigurationGroupBox = new System.Windows.Forms.GroupBox();
+            this.streamConfigDiscordChannelDropDown = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.StreamConfigDiscordServerDropDown = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.streamConfigStreamTextBox = new System.Windows.Forms.TextBox();
+            this.SelectedStreamStreamConfigLabel = new System.Windows.Forms.Label();
+            this.StreamConfigStreamInputTextBox = new System.Windows.Forms.TextBox();
+            this.StreamConfigStreamsLabel = new System.Windows.Forms.Label();
+            this.StreamConfigKeyListBox = new System.Windows.Forms.ListBox();
+            this.TwitchLogTextBox = new System.Windows.Forms.TextBox();
+            this.TwitchLogLabel = new System.Windows.Forms.Label();
             this.DebugTab = new System.Windows.Forms.TabPage();
             this.DebugTestingButton = new System.Windows.Forms.Button();
             this.FrachatBotTrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -75,10 +90,13 @@
             this.DebugTabPage.SuspendLayout();
             this.UploadMethodTabControl.SuspendLayout();
             this.ManualTab.SuspendLayout();
-            this.AutomatedTab.SuspendLayout();
+            this.DiscordTab.SuspendLayout();
             this.BotUploadGroupBox.SuspendLayout();
             this.StepTwoGroupBox.SuspendLayout();
             this.StepOneGroupBox.SuspendLayout();
+            this.TwitchTabPage.SuspendLayout();
+            this.TwitchStreamConfigGroupBox.SuspendLayout();
+            this.StreamConfigurationGroupBox.SuspendLayout();
             this.DebugTab.SuspendLayout();
             this.FrachatBotSystemTrayContextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -211,7 +229,7 @@
             // UploadMethodTabControl
             // 
             this.UploadMethodTabControl.Controls.Add(this.ManualTab);
-            this.UploadMethodTabControl.Controls.Add(this.AutomatedTab);
+            this.UploadMethodTabControl.Controls.Add(this.DiscordTab);
             this.UploadMethodTabControl.Controls.Add(this.TwitchTabPage);
             this.UploadMethodTabControl.Controls.Add(this.DebugTab);
             this.UploadMethodTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -232,19 +250,19 @@
             this.ManualTab.Text = "Manual";
             this.ManualTab.UseVisualStyleBackColor = true;
             // 
-            // AutomatedTab
+            // DiscordTab
             // 
-            this.AutomatedTab.Controls.Add(this.BotUploadGroupBox);
-            this.AutomatedTab.Controls.Add(this.DiscordLogTextBox);
-            this.AutomatedTab.Controls.Add(this.LogLabel);
-            this.AutomatedTab.Controls.Add(this.BotStatusLabel);
-            this.AutomatedTab.Location = new System.Drawing.Point(4, 22);
-            this.AutomatedTab.Name = "AutomatedTab";
-            this.AutomatedTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AutomatedTab.Size = new System.Drawing.Size(1131, 890);
-            this.AutomatedTab.TabIndex = 1;
-            this.AutomatedTab.Text = "Automated";
-            this.AutomatedTab.UseVisualStyleBackColor = true;
+            this.DiscordTab.Controls.Add(this.BotUploadGroupBox);
+            this.DiscordTab.Controls.Add(this.DiscordLogTextBox);
+            this.DiscordTab.Controls.Add(this.LogLabel);
+            this.DiscordTab.Controls.Add(this.BotStatusLabel);
+            this.DiscordTab.Location = new System.Drawing.Point(4, 22);
+            this.DiscordTab.Name = "DiscordTab";
+            this.DiscordTab.Padding = new System.Windows.Forms.Padding(3);
+            this.DiscordTab.Size = new System.Drawing.Size(1131, 890);
+            this.DiscordTab.TabIndex = 1;
+            this.DiscordTab.Text = "Discord";
+            this.DiscordTab.UseVisualStyleBackColor = true;
             // 
             // BotUploadGroupBox
             // 
@@ -263,10 +281,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StepTwoGroupBox.Controls.Add(this.SendLogToDiscordButton);
-            this.StepTwoGroupBox.Controls.Add(this.ChannelSelectDropDown);
+            this.StepTwoGroupBox.Controls.Add(this.DiscordAutomationChannelSelectDropDown);
             this.StepTwoGroupBox.Controls.Add(this.ChannelSelectLabel);
             this.StepTwoGroupBox.Controls.Add(this.ServerSelectLabel);
-            this.StepTwoGroupBox.Controls.Add(this.ServerSelectDropDown);
+            this.StepTwoGroupBox.Controls.Add(this.DiscordAutomationServerSelectDropDown);
             this.StepTwoGroupBox.Location = new System.Drawing.Point(559, 20);
             this.StepTwoGroupBox.Name = "StepTwoGroupBox";
             this.StepTwoGroupBox.Size = new System.Drawing.Size(551, 490);
@@ -286,18 +304,18 @@
             this.SendLogToDiscordButton.UseVisualStyleBackColor = true;
             this.SendLogToDiscordButton.Click += new System.EventHandler(this.OnLogSendButtonClicked);
             // 
-            // ChannelSelectDropDown
+            // DiscordAutomationChannelSelectDropDown
             // 
-            this.ChannelSelectDropDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.DiscordAutomationChannelSelectDropDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ChannelSelectDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ChannelSelectDropDown.Enabled = false;
-            this.ChannelSelectDropDown.FormattingEnabled = true;
-            this.ChannelSelectDropDown.Location = new System.Drawing.Point(22, 76);
-            this.ChannelSelectDropDown.Name = "ChannelSelectDropDown";
-            this.ChannelSelectDropDown.Size = new System.Drawing.Size(505, 21);
-            this.ChannelSelectDropDown.TabIndex = 3;
-            this.ChannelSelectDropDown.SelectedIndexChanged += new System.EventHandler(this.OnDropDownSelected);
+            this.DiscordAutomationChannelSelectDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DiscordAutomationChannelSelectDropDown.Enabled = false;
+            this.DiscordAutomationChannelSelectDropDown.FormattingEnabled = true;
+            this.DiscordAutomationChannelSelectDropDown.Location = new System.Drawing.Point(22, 76);
+            this.DiscordAutomationChannelSelectDropDown.Name = "DiscordAutomationChannelSelectDropDown";
+            this.DiscordAutomationChannelSelectDropDown.Size = new System.Drawing.Size(505, 21);
+            this.DiscordAutomationChannelSelectDropDown.TabIndex = 3;
+            this.DiscordAutomationChannelSelectDropDown.SelectedIndexChanged += new System.EventHandler(this.OnDropDownSelected);
             // 
             // ChannelSelectLabel
             // 
@@ -317,19 +335,19 @@
             this.ServerSelectLabel.TabIndex = 1;
             this.ServerSelectLabel.Text = "Select the server:";
             // 
-            // ServerSelectDropDown
+            // DiscordAutomationServerSelectDropDown
             // 
-            this.ServerSelectDropDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.DiscordAutomationServerSelectDropDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ServerSelectDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ServerSelectDropDown.Enabled = false;
-            this.ServerSelectDropDown.FormattingEnabled = true;
-            this.ServerSelectDropDown.Location = new System.Drawing.Point(22, 35);
-            this.ServerSelectDropDown.Name = "ServerSelectDropDown";
-            this.ServerSelectDropDown.Size = new System.Drawing.Size(505, 21);
-            this.ServerSelectDropDown.TabIndex = 0;
-            this.ServerSelectDropDown.SelectedIndexChanged += new System.EventHandler(this.OnDropDownSelected);
-            this.ServerSelectDropDown.Click += new System.EventHandler(this.ServerRefreshRequested);
+            this.DiscordAutomationServerSelectDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DiscordAutomationServerSelectDropDown.Enabled = false;
+            this.DiscordAutomationServerSelectDropDown.FormattingEnabled = true;
+            this.DiscordAutomationServerSelectDropDown.Location = new System.Drawing.Point(22, 35);
+            this.DiscordAutomationServerSelectDropDown.Name = "DiscordAutomationServerSelectDropDown";
+            this.DiscordAutomationServerSelectDropDown.Size = new System.Drawing.Size(505, 21);
+            this.DiscordAutomationServerSelectDropDown.TabIndex = 0;
+            this.DiscordAutomationServerSelectDropDown.SelectedIndexChanged += new System.EventHandler(this.OnDropDownSelected);
+            this.DiscordAutomationServerSelectDropDown.Click += new System.EventHandler(this.ServerRefreshRequested);
             // 
             // StepOneGroupBox
             // 
@@ -360,7 +378,7 @@
             this.BotLogInputTextBox.Size = new System.Drawing.Size(528, 355);
             this.BotLogInputTextBox.TabIndex = 2;
             this.BotLogInputTextBox.Text = "";
-            this.BotLogInputTextBox.TextChanged += new System.EventHandler(this.OnLogModified);
+            this.BotLogInputTextBox.TextChanged += new System.EventHandler(this.OnDiscordLogModified);
             // 
             // AutomatedLogFileSelectButton
             // 
@@ -411,7 +429,7 @@
             this.LogLabel.AutoSize = true;
             this.LogLabel.Location = new System.Drawing.Point(3, 3);
             this.LogLabel.Name = "LogLabel";
-            this.LogLabel.Size = new System.Drawing.Size(43, 13);
+            this.LogLabel.Size = new System.Drawing.Size(83, 13);
             this.LogLabel.TabIndex = 1;
             this.LogLabel.Text = "Discord Bot Log";
             // 
@@ -428,6 +446,11 @@
             // 
             // TwitchTabPage
             // 
+            this.TwitchTabPage.Controls.Add(this.TwitchChatTextBox);
+            this.TwitchTabPage.Controls.Add(this.label1);
+            this.TwitchTabPage.Controls.Add(this.TwitchStreamConfigGroupBox);
+            this.TwitchTabPage.Controls.Add(this.TwitchLogTextBox);
+            this.TwitchTabPage.Controls.Add(this.TwitchLogLabel);
             this.TwitchTabPage.Location = new System.Drawing.Point(4, 22);
             this.TwitchTabPage.Name = "TwitchTabPage";
             this.TwitchTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -435,6 +458,153 @@
             this.TwitchTabPage.TabIndex = 3;
             this.TwitchTabPage.Text = "Twitch Int.";
             this.TwitchTabPage.UseVisualStyleBackColor = true;
+            // 
+            // TwitchChatTextBox
+            // 
+            this.TwitchChatTextBox.Location = new System.Drawing.Point(7, 516);
+            this.TwitchChatTextBox.Multiline = true;
+            this.TwitchChatTextBox.Name = "TwitchChatTextBox";
+            this.TwitchChatTextBox.ReadOnly = true;
+            this.TwitchChatTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.TwitchChatTextBox.Size = new System.Drawing.Size(1116, 366);
+            this.TwitchChatTextBox.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 499);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "ChatLogMonitor";
+            // 
+            // TwitchStreamConfigGroupBox
+            // 
+            this.TwitchStreamConfigGroupBox.Controls.Add(this.StreamConfigurationGroupBox);
+            this.TwitchStreamConfigGroupBox.Controls.Add(this.StreamConfigStreamInputTextBox);
+            this.TwitchStreamConfigGroupBox.Controls.Add(this.StreamConfigStreamsLabel);
+            this.TwitchStreamConfigGroupBox.Controls.Add(this.StreamConfigKeyListBox);
+            this.TwitchStreamConfigGroupBox.Location = new System.Drawing.Point(9, 253);
+            this.TwitchStreamConfigGroupBox.Name = "TwitchStreamConfigGroupBox";
+            this.TwitchStreamConfigGroupBox.Size = new System.Drawing.Size(1114, 239);
+            this.TwitchStreamConfigGroupBox.TabIndex = 2;
+            this.TwitchStreamConfigGroupBox.TabStop = false;
+            this.TwitchStreamConfigGroupBox.Text = "Config";
+            // 
+            // StreamConfigurationGroupBox
+            // 
+            this.StreamConfigurationGroupBox.Controls.Add(this.streamConfigDiscordChannelDropDown);
+            this.StreamConfigurationGroupBox.Controls.Add(this.label3);
+            this.StreamConfigurationGroupBox.Controls.Add(this.StreamConfigDiscordServerDropDown);
+            this.StreamConfigurationGroupBox.Controls.Add(this.label2);
+            this.StreamConfigurationGroupBox.Controls.Add(this.streamConfigStreamTextBox);
+            this.StreamConfigurationGroupBox.Controls.Add(this.SelectedStreamStreamConfigLabel);
+            this.StreamConfigurationGroupBox.Location = new System.Drawing.Point(211, 20);
+            this.StreamConfigurationGroupBox.Name = "StreamConfigurationGroupBox";
+            this.StreamConfigurationGroupBox.Size = new System.Drawing.Size(306, 213);
+            this.StreamConfigurationGroupBox.TabIndex = 3;
+            this.StreamConfigurationGroupBox.TabStop = false;
+            this.StreamConfigurationGroupBox.Text = "Stream Configuration";
+            // 
+            // streamConfigDiscordChannelDropDown
+            // 
+            this.streamConfigDiscordChannelDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.streamConfigDiscordChannelDropDown.FormattingEnabled = true;
+            this.streamConfigDiscordChannelDropDown.Location = new System.Drawing.Point(10, 121);
+            this.streamConfigDiscordChannelDropDown.Name = "streamConfigDiscordChannelDropDown";
+            this.streamConfigDiscordChannelDropDown.Size = new System.Drawing.Size(290, 21);
+            this.streamConfigDiscordChannelDropDown.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 104);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(133, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Selected Discord Channel:";
+            // 
+            // StreamConfigDiscordServerDropDown
+            // 
+            this.StreamConfigDiscordServerDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.StreamConfigDiscordServerDropDown.FormattingEnabled = true;
+            this.StreamConfigDiscordServerDropDown.Location = new System.Drawing.Point(10, 76);
+            this.StreamConfigDiscordServerDropDown.Name = "StreamConfigDiscordServerDropDown";
+            this.StreamConfigDiscordServerDropDown.Size = new System.Drawing.Size(290, 21);
+            this.StreamConfigDiscordServerDropDown.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 59);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(125, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Selected Discord Server:";
+            // 
+            // streamConfigStreamTextBox
+            // 
+            this.streamConfigStreamTextBox.Location = new System.Drawing.Point(10, 36);
+            this.streamConfigStreamTextBox.Name = "streamConfigStreamTextBox";
+            this.streamConfigStreamTextBox.Size = new System.Drawing.Size(116, 20);
+            this.streamConfigStreamTextBox.TabIndex = 1;
+            // 
+            // SelectedStreamStreamConfigLabel
+            // 
+            this.SelectedStreamStreamConfigLabel.AutoSize = true;
+            this.SelectedStreamStreamConfigLabel.Location = new System.Drawing.Point(7, 20);
+            this.SelectedStreamStreamConfigLabel.Name = "SelectedStreamStreamConfigLabel";
+            this.SelectedStreamStreamConfigLabel.Size = new System.Drawing.Size(88, 13);
+            this.SelectedStreamStreamConfigLabel.TabIndex = 0;
+            this.SelectedStreamStreamConfigLabel.Text = "Selected Stream:";
+            // 
+            // StreamConfigStreamInputTextBox
+            // 
+            this.StreamConfigStreamInputTextBox.Location = new System.Drawing.Point(11, 202);
+            this.StreamConfigStreamInputTextBox.Name = "StreamConfigStreamInputTextBox";
+            this.StreamConfigStreamInputTextBox.Size = new System.Drawing.Size(194, 20);
+            this.StreamConfigStreamInputTextBox.TabIndex = 2;
+            // 
+            // StreamConfigStreamsLabel
+            // 
+            this.StreamConfigStreamsLabel.AutoSize = true;
+            this.StreamConfigStreamsLabel.Location = new System.Drawing.Point(7, 20);
+            this.StreamConfigStreamsLabel.Name = "StreamConfigStreamsLabel";
+            this.StreamConfigStreamsLabel.Size = new System.Drawing.Size(48, 13);
+            this.StreamConfigStreamsLabel.TabIndex = 1;
+            this.StreamConfigStreamsLabel.Text = "Streams:";
+            // 
+            // StreamConfigKeyListBox
+            // 
+            this.StreamConfigKeyListBox.FormattingEnabled = true;
+            this.StreamConfigKeyListBox.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.StreamConfigKeyListBox.Items.AddRange(new object[] {
+            "clamhat",
+            "ryukred_",
+            "graceandglory"});
+            this.StreamConfigKeyListBox.Location = new System.Drawing.Point(10, 36);
+            this.StreamConfigKeyListBox.Name = "StreamConfigKeyListBox";
+            this.StreamConfigKeyListBox.Size = new System.Drawing.Size(195, 160);
+            this.StreamConfigKeyListBox.TabIndex = 0;
+            // 
+            // TwitchLogTextBox
+            // 
+            this.TwitchLogTextBox.Location = new System.Drawing.Point(10, 24);
+            this.TwitchLogTextBox.Multiline = true;
+            this.TwitchLogTextBox.Name = "TwitchLogTextBox";
+            this.TwitchLogTextBox.ReadOnly = true;
+            this.TwitchLogTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.TwitchLogTextBox.Size = new System.Drawing.Size(1113, 222);
+            this.TwitchLogTextBox.TabIndex = 1;
+            // 
+            // TwitchLogLabel
+            // 
+            this.TwitchLogLabel.AutoSize = true;
+            this.TwitchLogLabel.Location = new System.Drawing.Point(7, 7);
+            this.TwitchLogLabel.Name = "TwitchLogLabel";
+            this.TwitchLogLabel.Size = new System.Drawing.Size(82, 13);
+            this.TwitchLogLabel.TabIndex = 0;
+            this.TwitchLogLabel.Text = "Twitch Bot Log:";
             // 
             // DebugTab
             // 
@@ -511,13 +681,19 @@
             this.DebugTabPage.ResumeLayout(false);
             this.UploadMethodTabControl.ResumeLayout(false);
             this.ManualTab.ResumeLayout(false);
-            this.AutomatedTab.ResumeLayout(false);
-            this.AutomatedTab.PerformLayout();
+            this.DiscordTab.ResumeLayout(false);
+            this.DiscordTab.PerformLayout();
             this.BotUploadGroupBox.ResumeLayout(false);
             this.StepTwoGroupBox.ResumeLayout(false);
             this.StepTwoGroupBox.PerformLayout();
             this.StepOneGroupBox.ResumeLayout(false);
             this.StepOneGroupBox.PerformLayout();
+            this.TwitchTabPage.ResumeLayout(false);
+            this.TwitchTabPage.PerformLayout();
+            this.TwitchStreamConfigGroupBox.ResumeLayout(false);
+            this.TwitchStreamConfigGroupBox.PerformLayout();
+            this.StreamConfigurationGroupBox.ResumeLayout(false);
+            this.StreamConfigurationGroupBox.PerformLayout();
             this.DebugTab.ResumeLayout(false);
             this.FrachatBotSystemTrayContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -535,7 +711,7 @@
         private System.Windows.Forms.FlowLayoutPanel DebugFlowLayoutGroup;
         private System.Windows.Forms.TabControl UploadMethodTabControl;
         private System.Windows.Forms.TabPage ManualTab;
-        private System.Windows.Forms.TabPage AutomatedTab;
+        private System.Windows.Forms.TabPage DiscordTab;
         private System.Windows.Forms.RichTextBox LogInputTextBox;
         private System.Windows.Forms.SplitContainer ManualTabSplitContainer;
         private System.Windows.Forms.Label BotStatusLabel;
@@ -544,10 +720,10 @@
         private System.Windows.Forms.GroupBox BotUploadGroupBox;
         private System.Windows.Forms.GroupBox StepTwoGroupBox;
         private System.Windows.Forms.Button SendLogToDiscordButton;
-        private System.Windows.Forms.ComboBox ChannelSelectDropDown;
+        private System.Windows.Forms.ComboBox DiscordAutomationChannelSelectDropDown;
         private System.Windows.Forms.Label ChannelSelectLabel;
         private System.Windows.Forms.Label ServerSelectLabel;
-        private System.Windows.Forms.ComboBox ServerSelectDropDown;
+        private System.Windows.Forms.ComboBox DiscordAutomationServerSelectDropDown;
         private System.Windows.Forms.GroupBox StepOneGroupBox;
         private System.Windows.Forms.RichTextBox BotLogInputTextBox;
         private System.Windows.Forms.Button AutomatedLogFileSelectButton;
@@ -561,6 +737,21 @@
         private System.Windows.Forms.TabPage DebugTab;
         private System.Windows.Forms.Button DebugTestingButton;
         private System.Windows.Forms.TabPage TwitchTabPage;
+        private System.Windows.Forms.TextBox TwitchChatTextBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox TwitchStreamConfigGroupBox;
+        private System.Windows.Forms.TextBox TwitchLogTextBox;
+        private System.Windows.Forms.Label TwitchLogLabel;
+        private System.Windows.Forms.ListBox StreamConfigKeyListBox;
+        private System.Windows.Forms.Label StreamConfigStreamsLabel;
+        private System.Windows.Forms.GroupBox StreamConfigurationGroupBox;
+        private System.Windows.Forms.TextBox StreamConfigStreamInputTextBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox streamConfigStreamTextBox;
+        private System.Windows.Forms.Label SelectedStreamStreamConfigLabel;
+        private System.Windows.Forms.ComboBox streamConfigDiscordChannelDropDown;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox StreamConfigDiscordServerDropDown;
     }
 }
 

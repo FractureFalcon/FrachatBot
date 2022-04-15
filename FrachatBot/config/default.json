@@ -1,0 +1,20 @@
+{
+    "twitchArchiveConfigs": {
+        "clamhat": {
+            "discordServer": "CLERVER (AKA CLAM SERVER)",
+            "discordChannel": "clatchives"
+        }, 
+        "ryukred_": {
+            "discordServer": "YEEOOO land",
+            "discordChannel": "rook_twitch_chat_archives"
+        },
+        "fracturefalcon": {
+            "discordServer": "YEEOOO land",
+            "discordChannel": "bot-archive-test-channel"
+        },
+        "rebooooo": {
+            "discordServer": "Alex Does Games Quickly : Extra Life",
+            "discordChannel": "twitch-chat-log"
+        }
+    }
+}

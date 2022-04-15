@@ -10,26 +10,34 @@ using Discord.WebSocket;
 
 namespace FrachatBot
 {
-    public class FrachatBotDiscordInterOp
+    public class FrachatBotDiscordProvider
     {
+        public event EventHandler OnInitializationComplete;
+
         private FrachatBotForm frachatBotForm;
         private DiscordSocketClient discordClient;
-        private SocketGuild targetServer;
-        private SocketGuildChannel targetChannel;
-        private string logToSend;
 
         // Deadname myself instead of committing my secrets to GitHub, the dedication
         private const string discordTokenFilePath = "C:\\Users\\K8\\frachatBotDiscordToken.txt";
 
-        public FrachatBotDiscordInterOp(FrachatBotForm form)
+        public FrachatBotDiscordProvider(FrachatBotForm form)
         {
             frachatBotForm = form;
-            InitializeDiscordClient();
-            frachatBotForm.LogModifiedEvent += OnLogModified;
             frachatBotForm.OnApplicationClose += OnApplicationClose;
         }
 
-        private void InitializeDiscordClient()
+        // Wait till initialized before calling
+        public IReadOnlyCollection<SocketGuild> GetServerList()
+        {
+            return discordClient.Guilds;
+        }
+
+        public IReadOnlyCollection<SocketChannel> GetChannelList(SocketGuild selectedServer)
+        {
+            return selectedServer.Channels;
+        }
+
+        public async void Initialize()
         {
             discordClient = new DiscordSocketClient();
 
@@ -46,95 +54,31 @@ namespace FrachatBot
 
         private Task OnClientConnected()
         {
-            frachatBotForm.SetBotStatus("Connected");
             return Task.CompletedTask;
         }
 
         private Task OnClientDisconnected(Exception e)
         {
-            frachatBotForm.SetBotStatus("Disconnected");
             return Task.CompletedTask;
         }
 
         private Task OnClientLoggedIn()
         {
-            frachatBotForm.SetBotStatus("Logged in");
             return Task.CompletedTask;
         }
 
         private Task OnClientLoggedOut()
         {
-            frachatBotForm.SetBotStatus("Logged out");
             return Task.CompletedTask;
         }
 
         private Task OnClientReady()
         {
-            frachatBotForm.SetBotStatus("Ready");
-
-            frachatBotForm.PopulateServerList(discordClient.Guilds);
-
-            frachatBotForm.ServerSelected -= OnServerSelected;
-            frachatBotForm.ChannelSelected -= OnChannelSelected;
-            frachatBotForm.LogSendEvent -= TrySendLogs;
-
-            frachatBotForm.ServerSelected += OnServerSelected;
-            frachatBotForm.ChannelSelected += OnChannelSelected;
-            frachatBotForm.LogSendEvent += TrySendLogs;
-
+            EventUtils.SendEventHandlerEventSafe(OnInitializationComplete, this, null);
             return Task.CompletedTask;
         }
 
-        private void OnLogModified(object sender, EventArgs args)
-        {
-            RichTextBox senderTextBox = sender as RichTextBox;
-            if (senderTextBox == null)
-            {
-                return;
-            }
-            logToSend = senderTextBox.Text;
-            frachatBotForm.ToggleSendLogButtonFunctionality(CanSendLog());
-        }
-
-        private void OnServerSelected(ComboBox sender, EventArgs eventArgs)
-        {
-            SocketGuild selectedServer = sender.SelectedItem as SocketGuild;
-
-            if (selectedServer == null)
-            {
-                return;
-            }
-
-            targetServer = selectedServer;
-            frachatBotForm.PopulateChannelList(selectedServer.Channels);
-            frachatBotForm.ToggleSendLogButtonFunctionality(false);
-        }
-
-        private void OnChannelSelected(ComboBox sender, EventArgs eventArgs)
-        {
-            SocketGuildChannel selectedChannel = sender.SelectedItem as SocketGuildChannel;
-
-            if (selectedChannel == null)
-            {
-                return;
-            }
-
-            targetChannel = selectedChannel;
-
-            frachatBotForm.ToggleSendLogButtonFunctionality(CanSendLog());
-        }
-
-        private bool CanSendLog()
-        {
-            if (targetChannel != null && logToSend != null && logToSend.Length > 0)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private async void TrySendLogs(object sender, EventArgs args)
+        public async void TrySendLogs(SocketGuildChannel targetChannel, string logToSend)
         {
             SocketChannel channel = discordClient.GetChannel(targetChannel.Id);
             IMessageChannel messageChannel = channel as IMessageChannel;
@@ -208,7 +152,7 @@ namespace FrachatBot
 
         private async Task LogLineToConsole(string message)
         {
-            await frachatBotForm.LogLine(message);
+            await frachatBotForm.LogLineToDiscordLog(message);
         }
 
         private async void OnApplicationClose(object sender, EventArgs args)

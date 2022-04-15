@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Discord;
+using Discord.WebSocket;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -7,70 +11,87 @@ namespace FrachatBot
     public class FrachatBotInterOpMain
     {
         private FrachatBotForm frachatBotForm;
-        private FrachatBotDiscordInterOp discordInterOp;
+        private FrachatBotConfigManager frachatBotConfigManager;
+        private FrachatBotDiscordProvider discordProvider;
+        private FrachatBotTwitchIrcInterOp twitchIrcInterOp;
+        private FrachatBotTwitchApiInterOp twitchApiInterOp;
+
+        private string logToSend;
+        private SocketGuildChannel targetChannel;
+        private SocketGuild targetServer;
 
         public static void Main(string[] args)
         {
             new FrachatBotInterOpMain().Initialize();
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             frachatBotForm = new FrachatBotForm();
-            discordInterOp = new FrachatBotDiscordInterOp(frachatBotForm);
+            frachatBotConfigManager = new FrachatBotConfigManager(frachatBotForm);
+            discordProvider = new FrachatBotDiscordProvider(frachatBotForm);
+            discordProvider.OnInitializationComplete += InitializeDiscordUi;
+            discordProvider.Initialize();
+
+            twitchIrcInterOp = new FrachatBotTwitchIrcInterOp(frachatBotForm);
+            twitchApiInterOp = new FrachatBotTwitchApiInterOp(frachatBotForm);
 
             Application.Run(frachatBotForm);
         }
 
+        // TODO: Re-wire this functionality through DiscordProvider
         private Task OnClientConnected()
         {
-            frachatBotForm.SetBotStatus("Connected");
+            frachatBotForm.SetDiscordBotStatus("Connected");
             return Task.CompletedTask;
         }
 
         private Task OnClientDisconnected(Exception e)
         {
-            frachatBotForm.SetBotStatus("Disconnected");
+            frachatBotForm.SetDiscordBotStatus("Disconnected");
             return Task.CompletedTask;
         }
 
         private Task OnClientLoggedIn()
         {
-            frachatBotForm.SetBotStatus("Logged in");
+            frachatBotForm.SetDiscordBotStatus("Logged in");
             return Task.CompletedTask;
         }
 
         private Task OnClientLoggedOut()
         {
-            frachatBotForm.SetBotStatus("Logged out");
+            frachatBotForm.SetDiscordBotStatus("Logged out");
             return Task.CompletedTask;
         }
 
         private void RefreshServerList(object sender, EventArgs args)
         {
-            frachatBotForm.PopulateServerList(discordClient.Guilds);
+            frachatBotForm.PopulateDiscordAutomationServerList(discordProvider.GetServerList());
         }
 
-        private Task OnClientReady()
+        private void TrySendLogs(object sender, EventArgs args)
         {
-            frachatBotForm.SetBotStatus("Ready");
-
+            if (CanSendLog())
+            {
+                discordProvider.TrySendLogs(targetChannel, logToSend);
+            }
+        }
+        private void InitializeDiscordUi(object sender, EventArgs args)
+        {
             RefreshServerList(null, null);
 
-            frachatBotForm.ServerRefresh -= RefreshServerList;
-            frachatBotForm.ServerSelected -= OnServerSelected;
-            frachatBotForm.ChannelSelected -= OnChannelSelected;
+            frachatBotForm.DiscordAutomationServerRefresh -= RefreshServerList;
+            frachatBotForm.DiscordAutomationServerSelected -= OnServerSelected;
+            frachatBotForm.DiscordAutomationChannelSelected -= OnChannelSelected;
             frachatBotForm.LogSendEvent -= TrySendLogs;
 
-            frachatBotForm.ServerRefresh += RefreshServerList;
-            frachatBotForm.ServerSelected += OnServerSelected;
-            frachatBotForm.ChannelSelected += OnChannelSelected;
+            frachatBotForm.DiscordAutomationServerRefresh += RefreshServerList;
+            frachatBotForm.DiscordAutomationServerSelected += OnServerSelected;
+            frachatBotForm.DiscordAutomationChannelSelected += OnChannelSelected;
             frachatBotForm.LogSendEvent += TrySendLogs;
-
-            return Task.CompletedTask;
         }
 
         private void OnLogModified(object sender, EventArgs args)
@@ -94,7 +115,7 @@ namespace FrachatBot
             }
 
             targetServer = selectedServer;
-            frachatBotForm.PopulateChannelList(selectedServer.Channels);
+            frachatBotForm.PopulateStreamConfigChannelList(selectedServer.Channels);
             frachatBotForm.ToggleSendLogButtonFunctionality(false);
         }
 
@@ -122,27 +143,6 @@ namespace FrachatBot
             return false;
         }
 
-        private async void TrySendLogs(object sender, EventArgs args)
-        {
-            SocketChannel channel = discordClient.GetChannel(targetChannel.Id);
-            IMessageChannel messageChannel = channel as IMessageChannel;
-            if (messageChannel == null)
-            {
-                await LogLineToConsole("Selected channel did not cast to IMessageChannel");
-                return;
-            }
-
-            List<string> logChunks = SplitLog(logToSend);
-            frachatBotForm.ToggleSendLogButtonFunctionality(false);
-
-            foreach (string logChunk in logChunks)
-            {
-                await TrySendLogChunk(messageChannel, logChunk);
-            }
-
-            frachatBotForm.ToggleSendLogButtonFunctionality(true);
-        }
-
         private async Task TrySendLogChunk(IMessageChannel messageChannel, string logChunk, int maxRetries = 10)
         {
             bool success = false;
@@ -159,18 +159,18 @@ namespace FrachatBot
                 }
                 catch (Exception e)
                 {
-                    await LogLineToConsole($"SendMessageAsync threw exception {e.ToString()}: {e.Message}");
+                    await LogLineToDiscordConsole($"SendMessageAsync threw exception {e.ToString()}: {e.Message}");
                 }
 
                 if (messageResult == null)
                 {
-                    await LogLineToConsole("messageResult from SendMessageAsync was null");
+                    await LogLineToDiscordConsole("messageResult from SendMessageAsync was null");
                 }
                 else
                 {
                     int previewLength = Math.Min(messageResult.Content.Length, messageResult.Content.IndexOf(Environment.NewLine));
                     previewLength = Math.Min(previewLength, 50);
-                    await LogLineToConsole($"SendMessageAsync returned {messageResult.Id} @ {messageResult.Timestamp}: {messageResult.Content.Substring(0, previewLength)}...");
+                    await LogLineToDiscordConsole($"SendMessageAsync returned {messageResult.Id} @ {messageResult.Timestamp}: {messageResult.Content.Substring(0, previewLength)}...");
                     success = true;
                 }
 
@@ -178,8 +178,8 @@ namespace FrachatBot
                 {
                     if (tries >= maxRetries)
                     {
-                        await LogLineToConsole($"LOG CHUNK FAILED TO UPLOAD AFTER {maxRetries} ATTEMPTS:");
-                        await LogLineToConsole($"```{logChunk}```");
+                        await LogLineToDiscordConsole($"LOG CHUNK FAILED TO UPLOAD AFTER {maxRetries} ATTEMPTS:");
+                        await LogLineToDiscordConsole($"```{logChunk}```");
                         return;
                     }
 
@@ -191,19 +191,12 @@ namespace FrachatBot
         private async Task OnLogEvent(LogMessage message)
         {
             Console.WriteLine($"DiscordLogEvent: {message}");
-            await LogLineToConsole(message.ToString());
+            await LogLineToDiscordConsole(message.ToString());
         }
 
-        private async Task LogLineToConsole(string message)
+        private async Task LogLineToDiscordConsole(string message)
         {
-            await frachatBotForm.LogLine(message);
-        }
-
-        private async void OnApplicationClose(object sender, EventArgs args)
-        {
-            await discordClient.StopAsync();
-            discordClient.Dispose();
-            Application.Exit();
+            await frachatBotForm.LogLineToDiscordLog(message);
         }
 
         public static List<string> SplitLog(string log, int characterLimit = DiscordTextPostDataModel.TextPostLimitPlainTextPosts, bool prettify = true)
